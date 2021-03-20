@@ -9,6 +9,7 @@ type (
 		Pass   string `json:",optional"`
 		Weight int    `json:",default=100"`
 	}
+	CacheConf = ClusterConf
 )
 
 func (rc NodeConf) NewRedis() *Redis {

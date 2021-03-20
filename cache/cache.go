@@ -5,10 +5,9 @@ import (
 	"log"
 	"time"
 
-	"redis-cache/utils"
 	"redis-cache/hash"
 	"redis-cache/singleflight"
-
+	"redis-cache/utils"
 )
 
 type (
@@ -70,7 +69,7 @@ func (cc cacheCluster) DelCache(keys ...string) error {
 		return nil
 	case 1:
 		key := keys[0]
-		// 获取 cachenode 
+		// 获取 cachenode
 		c, ok := cc.dispatcher.Get(key)
 		if !ok {
 			return cc.errNotFound

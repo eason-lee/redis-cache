@@ -7,3 +7,6 @@
 ## hash 一致性，避免升降级后过多的 cache miss ， 加权负载均衡
 
 ## 缓存命中率，SQL 慢查询
+
+
+## sql cache 
