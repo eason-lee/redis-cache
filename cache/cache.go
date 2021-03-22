@@ -50,7 +50,7 @@ func NewCache(c ClusterConf, barrier singleflight.SharedCalls, st *CacheStat, er
 		return NewCacheNode(c[0].NewRedis(), barrier, st, errNotFound, opts...)
 	}
 
-	// 使用集群模式，遍历初始化
+	// 使用一致性 hash
 	dispatcher := hash.NewConsistentHash()
 	for _, node := range c {
 		cn := NewCacheNode(node.NewRedis(), barrier, st, errNotFound, opts...)
