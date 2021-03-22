@@ -9,8 +9,7 @@ import (
 const statInterval = time.Minute
 
 type CacheStat struct {
-	name string
-
+	name    string
 	Total   uint64
 	Hit     uint64
 	Miss    uint64

@@ -61,7 +61,6 @@ func (c cacheNode) DelCache(keys ...string) error {
 
 	if err := c.rds.Del(c.Ctx, keys...); err != nil {
 		log.Printf("failed to clear cache with keys: %q, error: %v", utils.FormatKeys(keys), err)
-		// c.asyncRetryDelCache(keys...)
 	}
 
 	return nil
@@ -112,12 +111,6 @@ func (c cacheNode) TakeWithExpire(v interface{}, key string,
 func (c cacheNode) aroundDuration(duration time.Duration) time.Duration {
 	return c.unstableExpiry.AroundDuration(duration)
 }
-
-// func (c cacheNode) asyncRetryDelCache(keys ...string) {
-// 	AddCleanTask(func() error {
-// 		return c.rds.Del(c.Ctx, keys...)
-// 	}, keys...)
-// }
 
 func (c cacheNode) doGetCache(key string, v interface{}) error {
 	c.stat.IncrementTotal()

@@ -21,7 +21,7 @@ func newOptions(opts ...Option) Options {
 	for _, opt := range opts {
 		opt(&o)
 	}
-
+ 
 	if o.Expiry <= 0 {
 		o.Expiry = defaultExpiry
 	}

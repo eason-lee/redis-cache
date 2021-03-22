@@ -7,12 +7,10 @@ import (
 	"time"
 )
 
-// see doc/sql-cache.md
 const cacheSafeGapBetweenIndexAndPrimary = time.Second * 5
 
 var (
-
-	// can't use one SharedCalls per conn, because multiple conns may share the same cache key.
+	// 多个连接使用一个 SharedCalls ，共获取的缓存结果
 	exclusiveCalls = singleflight.NewSharedCalls()
 	stats          = cache.NewCacheStat("sqlcache")
 )

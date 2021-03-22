@@ -90,11 +90,8 @@ func (h *ConsistentHash) AddWithReplicas(node interface{}, replicas int) {
 	})
 }
 
-// AddWithWeight adds the node with weight, the weight can be 1 to 100, indicates the percent,
-// the later call will overwrite the replicas of the former calls.
+// AddWithWeight 添加节点时配置权重，可选择范围为 1~100 ，表示权重的百分比
 func (h *ConsistentHash) AddWithWeight(node interface{}, weight int) {
-	// don't need to make sure weight not larger than TopWeight,
-	// because AddWithReplicas makes sure replicas cannot be larger than h.replicas
 	replicas := h.replicas * weight / TopWeight
 	h.AddWithReplicas(node, replicas)
 }

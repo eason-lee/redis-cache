@@ -39,6 +39,7 @@ type (
 	}
 )
 
+// NewRedis  the type is node or cluster
 func NewRedis(redisAddr, redisType string, redisPass ...string) *Redis {
 	var pass string
 	for _, v := range redisPass {
@@ -96,13 +97,19 @@ func getClient(server, pass string) (*rdb.Client, error) {
 	return val.(*rdb.Client), nil
 }
 
-func (r *Redis) Get(ctx context.Context, key string) (string, error) {
+func (r *Redis) Get(ctx context.Context, key string) (val string, err error) {
 	conn, err := getRedis(r)
 	if err != nil {
-		return "", err
+		return
 	}
 
-	return conn.Get(ctx, key).Result()
+	if val, err = conn.Get(ctx, key).Result(); err == rdb.Nil {
+		return val, nil
+	} else if err != nil {
+		return
+	}
+
+	return
 }
 
 func (r *Redis) Set(ctx context.Context, key, val string, expire time.Duration) error {

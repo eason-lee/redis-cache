@@ -15,7 +15,6 @@ type (
 		QueryRows(v interface{}, query string, args ...interface{}) error
 	}
 
-	// SqlConn only stands for raw connections, so Transact method can be called.
 	SqlConn interface {
 		Session
 		Transact(func(txExec) error) error
